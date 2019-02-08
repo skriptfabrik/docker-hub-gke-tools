@@ -58,7 +58,24 @@ within a CI:
 docker run \
     --rm \
     --volume "$(pwd)":/app \
-    --env GKE_SERVICE_ACCOUNT_KEY=<SERVICE-ACCOUNT-KEY.JSON-DATA> \
+    --env GKE_SERVICE_ACCOUNT_KEY=<BASE64-ENCODED-SERVICE-ACCOUNT-JSON-DATA> \
+    --env GKE_CLUSTER_NAME=<CLUSTER-NAME> \
+    --env GKE_REGION=<GKE-CLUSTER-REGION> \
+    --env GKE_ZONE=<GKE-CLUSTER-ZONE> \
+    skriptfabrik/gke-tools \
+    sh -c " \
+        activate-service-account; \
+        <ALL THE FANCY COMMAND LINE TOOL CALLS>
+    "
+```
+
+Aa an alternative mount the service account credentials:
+
+```bash
+docker run \
+    --rm \
+    --volume "$(pwd)":/app \
+    --volume ./service-account.json:/root/.config/gcloud-credentials/service-account.json \
     --env GKE_CLUSTER_NAME=<CLUSTER-NAME> \
     --env GKE_REGION=<GKE-CLUSTER-REGION> \
     --env GKE_ZONE=<GKE-CLUSTER-ZONE> \
@@ -75,7 +92,7 @@ The image can be configured by using environment variables.
 
 | Environment | Description |
 | --- | --- |
-| `GKE_SERVICE_ACCOUNT_KEY` | The content of the Google service account key json file which is provided by Google. |
+| `GKE_SERVICE_ACCOUNT_KEY` | The base64 encoded content of the Google service account key json file which is provided by Google. |
 | `GKE_CLUSTER_NAME` | The name of the Kubernetes cluster. |
 | `GKE_REGION`* | The region of the Kubernetes cluster. |
 | `GKE_ZONE`* | The zone of the Kubernetes cluster. |
@@ -88,6 +105,7 @@ If necessary, the configuaration if all tools can be mounted as volume.
 | Tool | Configuration path within the container |
 | --- | --- |
 | Google Cloud SDK Client | `/root/.config/gcloud` |
+| Google Cloud Credentials | `/root/.config/gcloud-credentials` |
 | Helm | `/root/.helm` |
 | Kubernetes | `/root/.kube` |
 
