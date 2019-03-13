@@ -67,6 +67,9 @@ RUN set -xe; \
 # Copy scripts into image
 COPY bin/activate-service-account /usr/local/bin/activate-service-account
 
+# Fix incompatible less behavior in alpine
+ENV PAGER="busybox less"
+
 WORKDIR /app
 
 CMD ["gcloud"]
