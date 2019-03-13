@@ -5,13 +5,6 @@ LABEL maintainer="frank.giesecke@skriptfabrik.com"
 ENV HELM_VERSION=2.11.0
 ENV SPACESHIP_PROMPT_VERSION=3.9.0
 
-ARG APK_BASH_VERSION=4.4.19-r1
-ARG APK_GETTEXT_VERSION=0.19.8.1-r2
-ARG APK_JQ_VERSION=1.6_rc1-r1
-ARG APK_OPENSSL_VERSION=1.0.2q-r0
-ARG APK_SED_VERSION=4.4-r2
-ARG APK_ZSH_VERSION=5.5.1-r0
-
 # Update components
 RUN gcloud --quiet components update
 
@@ -19,30 +12,34 @@ RUN gcloud --quiet components update
 RUN gcloud --quiet components install kubectl
 
 # Install bash
+# hadolint ignore=DL3018
 RUN set -xe; \
     apk add --no-cache \
-        bash=${APK_BASH_VERSION};
+        bash;
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install Helm
+# hadolint ignore=DL3018
 RUN set -xe; \
-    apk add --no-cache openssl=${APK_OPENSSL_VERSION}; \
+    apk add --no-cache openssl; \
     curl -fsSL https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xz --strip-components=1 -C /usr/local/bin; \
     helm init -c;
 
 # Install tools
+# hadolint ignore=DL3018
 RUN set -xe; \
     apk add --no-cache \
-        gettext=${APK_GETTEXT_VERSION} \
-        jq=${APK_JQ_VERSION} \
-        sed=${APK_SED_VERSION};
+        gettext \
+        jq \
+        sed;
 
 # Install zsh
+# hadolint ignore=DL3018
 RUN set -xe; \
     apk add --no-cache \
-        zsh=${APK_ZSH_VERSION} \
-        zsh-vcs=${APK_ZSH_VERSION};
+        zsh \
+        zsh-vcs;
 
 # Install oh-my-zsh
 RUN set -xe; \
@@ -66,6 +63,9 @@ RUN set -xe; \
 
 # Copy scripts into image
 COPY bin/activate-service-account /usr/local/bin/activate-service-account
+
+# Fix incompatible less behavior in alpine
+ENV PAGER="busybox less"
 
 WORKDIR /app
 
