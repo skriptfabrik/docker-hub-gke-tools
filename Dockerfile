@@ -2,7 +2,7 @@ FROM google/cloud-sdk:alpine
 
 LABEL maintainer="frank.giesecke@skriptfabrik.com"
 
-ENV HELM_VERSION=2.13.1
+ENV HELM_VERSION=2.14.0
 ENV SPACESHIP_PROMPT_VERSION=3.11.0
 
 # Update components
