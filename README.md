@@ -109,6 +109,8 @@ If necessary, the configuaration if all tools can be mounted as volume.
 | Helm | `/root/.helm` |
 | Kubernetes | `/root/.kube` |
 
+Instead of injecting the Google Cloud Credentials, the credential file can also be set as first argument to the `activate-service-account` script.
+
 ## Quick reference
 -   **Where to get help:**
 [the Docker Community Forums](https://forums.docker.com),
