@@ -1,9 +1,9 @@
-FROM google/cloud-sdk:alpine
+FROM google/cloud-sdk:284.0.0-alpine
 
 LABEL maintainer="frank.giesecke@skriptfabrik.com"
 
-ENV HELM_VERSION=2.14.0
-ENV SPACESHIP_PROMPT_VERSION=3.11.0
+ENV HELM_VERSION=3.1.0
+ENV SPACESHIP_PROMPT_VERSION=3.11.2
 
 # Update components
 RUN gcloud --quiet components update
@@ -23,8 +23,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3018
 RUN set -xe; \
     apk add --no-cache openssl; \
-    curl -fsSL https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xz --strip-components=1 -C /usr/local/bin; \
-    helm init -c;
+    curl -fsSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xz --strip-components=1 -C /usr/local/bin;
 
 # Install tools
 # hadolint ignore=DL3018
@@ -48,9 +47,9 @@ RUN set -xe; \
 # Install and enable spaceship theme
 ARG ZSH_CUSTOM=/root/.oh-my-zsh/custom
 RUN set -xe; \
-    mkdir "${ZSH_CUSTOM}/themes/spaceship-prompt"; \
+    mkdir -p "${ZSH_CUSTOM}/themes/spaceship-prompt"; \
     curl -fsSL https://github.com/denysdovhan/spaceship-prompt/archive/v${SPACESHIP_PROMPT_VERSION}.tar.gz | tar -xz --strip-components=1 -C "${ZSH_CUSTOM}/themes/spaceship-prompt"; \
-    ln -s "${ZSH_CUSTOM}/themes/spaceship-prompt/spaceship.zsh-theme" "${ZSH_CUSTOM}/themes/spaceship.zsh-theme";
+    ln -sf "${ZSH_CUSTOM}/themes/spaceship-prompt/spaceship.zsh-theme" "${ZSH_CUSTOM}/themes/spaceship.zsh-theme";
 
 # Configure zsh
 RUN set -xe; \
