@@ -1,9 +1,9 @@
-FROM google/cloud-sdk:298.0.0-alpine
+FROM google/cloud-sdk:308.0.0-alpine
 
 LABEL maintainer="frank.giesecke@skriptfabrik.com"
 
-ENV HELM_VERSION=3.2.4
-ENV KUBE_VERSION=1.17
+ENV HELM_VERSION=3.3.1
+ENV KUBE_VERSION=1.18
 ENV SPACESHIP_PROMPT_VERSION=3.11.2
 
 # Update components
@@ -12,6 +12,7 @@ RUN gcloud --quiet components update
 # Install kubectl
 RUN gcloud --quiet components install kubectl && \
     KUBE_BIN="$(command -v kubectl)" && \
+    ls -l "${KUBE_BIN}".* && \
     rm "${KUBE_BIN}" && \
     ln "${KUBE_BIN}.${KUBE_VERSION}" "${KUBE_BIN}"
 
