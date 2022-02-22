@@ -1,11 +1,11 @@
-FROM google/cloud-sdk:308.0.0-alpine
+FROM google/cloud-sdk:373.0.0-alpine
 
 LABEL maintainer="frank.giesecke@skriptfabrik.com"
 
-ENV HELM_VERSION=3.3.1
-ENV KUBE_VERSION=1.18
+ENV HELM_VERSION=3.8.0
+ENV KUBE_VERSION=1.21
 ENV KUSTOMIZE_VERSION=4.5.2
-ENV SPACESHIP_PROMPT_VERSION=3.11.2
+ENV SPACESHIP_PROMPT_VERSION=3.16.3
 
 # Update components
 RUN gcloud --quiet components update
