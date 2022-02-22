@@ -3,9 +3,10 @@
 This image provide a toolset to interact with the Google Kubenetes
 Engine.
 
--   `gcloud` [Google Cloud SDK Client](https://cloud.google.com/sdk/gcloud/)
--   `helm` [Helm CLI](https://docs.helm.sh/helm/#helm)
--   `kubectl` [Kubernetes CLI](https://kubernetes.io/docs/reference/kubectl/overview/)
+- `gcloud` [Google Cloud SDK Client](https://cloud.google.com/sdk/gcloud/)
+- `helm` [Helm CLI](https://docs.helm.sh/helm/#helm)
+- `kubectl` [Kubernetes CLI](https://kubernetes.io/docs/reference/kubectl/overview/)
+- `kustomize` [Kustomize CLI](https://kustomize.io/)
 
 There is also a script `activate-service-account` to simplify the
 authentication with a service account.
