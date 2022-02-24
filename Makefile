@@ -1,4 +1,7 @@
-NAME=skriptfabrik/gke-tools
+DOCKER_BUILD_OPTIONS?=
+DOCKER_IMAGE_NAME?=skriptfabrik/gke-tools
+DOCKER_IMAGE_TAG?=latest
+DOCKER_PLATFORMS?=linux/amd64
 
 .PHONY: default
 default: lint build
@@ -10,14 +13,17 @@ lint:
 
 .PHONY: build
 build:
-	@echo "Building docker image"
-	@docker build \
-		--force-rm \
-		--no-cache \
-		--tag ${NAME}:dev \
+	@echo "Building Docker image"
+	@docker buildx build \
+		--cache-from $(DOCKER_IMAGE_NAME):latest \
+		--output type=image \
+		--platform $(DOCKER_PLATFORMS) \
+		--pull \
+		--tag $(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_TAG) \
+		$(DOCKER_BUILD_OPTIONS) \
 		.
 
 .PHONY: clean
 clean:
-	@echo "Cleaning up docker images..."
-	-@docker rmi --force $(shell docker images ${NAME}:dev -q)
+	@echo "Cleaning up Docker images"
+	-@docker rmi --force $(shell docker images $(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_TAG) -q)
