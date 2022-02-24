@@ -1,10 +1,11 @@
-FROM google/cloud-sdk:308.0.0-alpine
+FROM google/cloud-sdk:373.0.0-alpine
 
 LABEL maintainer="frank.giesecke@skriptfabrik.com"
 
-ENV HELM_VERSION=3.3.1
-ENV KUBE_VERSION=1.18
-ENV SPACESHIP_PROMPT_VERSION=3.11.2
+ENV HELM_VERSION=3.8.0
+ENV KUBE_VERSION=1.21
+ENV KUSTOMIZE_VERSION=4.5.2
+ENV SPACESHIP_PROMPT_VERSION=3.16.3
 
 # Update components
 RUN gcloud --quiet components update
@@ -16,19 +17,24 @@ RUN gcloud --quiet components install kubectl && \
     rm "${KUBE_BIN}" && \
     ln "${KUBE_BIN}.${KUBE_VERSION}" "${KUBE_BIN}"
 
-# Install bash
+# Install bash and openssl
 # hadolint ignore=DL3018
 RUN set -xe; \
     apk add --no-cache \
-        bash;
+        bash \
+        openssl;
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install Helm
 # hadolint ignore=DL3018
 RUN set -xe; \
-    apk add --no-cache openssl; \
     curl -fsSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xz --strip-components=1 -C /usr/local/bin;
+
+# Install kustomize
+# hadolint ignore=DL3018
+RUN set -xe; \
+    curl -fsSL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz | tar -xz -C /usr/local/bin;
 
 # Install tools
 # hadolint ignore=DL3018
