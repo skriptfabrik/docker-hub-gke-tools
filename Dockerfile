@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:373.0.0-alpine
+FROM google/cloud-sdk:389.0.0-alpine
 
 LABEL maintainer="frank.giesecke@skriptfabrik.com"
 
@@ -11,7 +11,7 @@ ENV SPACESHIP_PROMPT_VERSION=3.16.3
 RUN gcloud --quiet components update
 
 # Install kubectl
-RUN gcloud --quiet components install kubectl && \
+RUN gcloud --quiet components install kubectl gke-gcloud-auth-plugin && \
     KUBE_BIN="$(command -v kubectl)" && \
     ls -l "${KUBE_BIN}".* && \
     rm "${KUBE_BIN}" && \
