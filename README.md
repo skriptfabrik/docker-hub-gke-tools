@@ -3,10 +3,13 @@
 This image provide a toolset to interact with the Google Kubenetes
 Engine.
 
+- `envsubst` [Environment variables substitution CLI](https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html)
 - `gcloud` [Google Cloud SDK Client](https://cloud.google.com/sdk/gcloud/)
 - `helm` [Helm CLI](https://docs.helm.sh/helm/#helm)
+- `jq` [JSON processor CLI](https://stedolan.github.io/jq/)
 - `kubectl` [Kubernetes CLI](https://kubernetes.io/docs/reference/kubectl/overview/)
 - `kustomize` [Kustomize CLI](https://kustomize.io/)
+- `zsh` [Z shell](https://www.zsh.org/), together with [oh my zsh](https://ohmyz.sh/) and [Spaceship prompt](https://spaceship-prompt.sh/)
 
 There is also a script `activate-service-account` to simplify the
 authentication with a service account.
@@ -15,7 +18,7 @@ The image provides a `zsh` including plugins for `helm` and `kubectl`.
 Autocomplete will work for all these tools.
 
 ## Supported tags and respective Dockerfile links
--   `skriptfabrik/gke-tools:latest`, `skriptfabrik/gke-tools:VERSION` [(Dockerfile)](https://github.com/skriptfabrik/docker-gke-tools/blob/master/Dockerfile)
+- `skriptfabrik/gke-tools:latest`, `skriptfabrik/gke-tools:VERSION` [(Dockerfile)](https://github.com/skriptfabrik/docker-gke-tools/blob/master/Dockerfile)
 
 &rarr; Check out [Docker Hub](https://hub.docker.com/r/skriptfabrik/gke-tools/tags/) for available tags.
 
