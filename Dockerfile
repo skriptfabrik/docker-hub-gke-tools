@@ -1,13 +1,13 @@
-FROM google/cloud-sdk:408.0.0-alpine
+FROM google/cloud-sdk:414.0.0-alpine
 
 LABEL maintainer="frank.giesecke@skriptfabrik.com"
 
 ARG TARGETOS
 ARG TARGETARCH
 
-ENV HELM_VERSION=3.10.1
-ENV KUBE_VERSION=1.25
-ENV SPACESHIP_PROMPT_VERSION=4.8.0
+ENV HELM_VERSION=3.11.0
+ENV KUBE_VERSION=1.26
+ENV SPACESHIP_PROMPT_VERSION=4.13.1
 
 # Use ash with options
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
@@ -15,6 +15,10 @@ SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 # Update Google Cloud components
 RUN set -xe; \
     gcloud --quiet components update
+
+# Install gke-gcloud-auth-plugin as Google Cloud component
+RUN set -xe; \
+	gcloud --quiet components install gke-gcloud-auth-plugin
 
 # Install kubectl as Google Cloud component
 RUN set -xe; \
@@ -27,10 +31,6 @@ RUN set -xe; \
 # Install kustomize as Google Cloud component
 RUN set -xe; \
     gcloud --quiet components install kustomize
-
-# Install gke-gcloud-auth-plugin as Google Cloud component
-RUN set -xe; \
-	gcloud --quiet components install gke-gcloud-auth-plugin
 
 # Install openssl
 # hadolint ignore=DL3018

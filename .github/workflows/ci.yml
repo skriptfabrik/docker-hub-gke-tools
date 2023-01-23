@@ -13,8 +13,8 @@ env:
   DOCKER_IMAGE_NAME: skriptfabrik/gke-tools
 
 jobs:
-  publish-push:
-    name: Publish package and Push Docker images
+  build-push:
+    name: Build and Push Docker image
     runs-on: ubuntu-latest
 
     steps:
