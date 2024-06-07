@@ -9,16 +9,11 @@ Engine.
 - `jq` [JSON processor CLI](https://stedolan.github.io/jq/)
 - `kubectl` [Kubernetes CLI](https://kubernetes.io/docs/reference/kubectl/overview/)
 - `kustomize` [Kustomize CLI](https://kustomize.io/)
-- `zsh` [Z shell](https://www.zsh.org/), together with [oh my zsh](https://ohmyz.sh/) and [Spaceship prompt](https://spaceship-prompt.sh/)
 
 There is also a script `activate-service-account` to simplify the
 authentication with a service account.
 
-The image provides a `zsh` including plugins for `helm` and `kubectl`.
-Autocomplete will work for all these tools.
-
 ## Supported tags and respective Dockerfile links
-- `skriptfabrik/gke-tools:latest`, `skriptfabrik/gke-tools:VERSION` [(Dockerfile)](https://github.com/skriptfabrik/docker-gke-tools/blob/master/Dockerfile)
 
 &rarr; Check out [Docker Hub](https://hub.docker.com/r/skriptfabrik/gke-tools/tags/) for available tags.
 
@@ -33,7 +28,7 @@ docker run \
     --tty \
     --volume "$(pwd)":/app \
     skriptfabrik/gke-tools \
-    zsh
+    bash
 ```
 
 Authorizing access to the Google Cloud Platform and logging in to the
@@ -94,38 +89,38 @@ docker run \
 
 The image can be configured by using environment variables.
 
-| Environment | Description |
-| --- | --- |
+| Environment               | Description                                                                                         |
+| ------------------------- | --------------------------------------------------------------------------------------------------- |
 | `GKE_SERVICE_ACCOUNT_KEY` | The base64 encoded content of the Google service account key json file which is provided by Google. |
-| `GKE_CLUSTER_NAME` | The name of the Kubernetes cluster. |
-| `GKE_REGION`* | The region of the Kubernetes cluster. |
-| `GKE_ZONE`* | The zone of the Kubernetes cluster. |
+| `GKE_CLUSTER_NAME`        | The name of the Kubernetes cluster.                                                                 |
+| `GKE_REGION`*             | The region of the Kubernetes cluster.                                                               |
+| `GKE_ZONE`*               | The zone of the Kubernetes cluster.                                                                 |
 
 \* Either one of these environments have to be defined.
 If both are defined, `GKE_REGION` will be used.
 
-If necessary, the configuaration if all tools can be mounted as volume.
+If necessary, the configuaration of all tools can be mounted as volume.
 
-| Tool | Configuration path within the container |
-| --- | --- |
-| Google Cloud SDK Client | `/root/.config/gcloud` |
-| Google Cloud Credentials | `/root/.config/gcloud-credentials` |
-| Helm | `/root/.helm` |
-| Kubernetes | `/root/.kube` |
+| Tool                     | Configuration path within the container |
+| ------------------------ | --------------------------------------- |
+| Google Cloud SDK Client  | `/root/.config/gcloud`                  |
+| Google Cloud Credentials | `/root/.config/gcloud-credentials`      |
+| Helm                     | `/root/.helm`                           |
+| Kubernetes               | `/root/.kube`                           |
 
 Instead of injecting the Google Cloud Credentials, the credential file can also be set as first argument to the `activate-service-account` script.
 
 ## Quick reference
--   **Where to get help:**
+- **Where to get help:**
 [the Docker Community Forums](https://forums.docker.com),
 [the Docker Community Slack](https://blog.docker.com/2016/11/introducing-docker-community-directory-docker-community-slack),
 or [Stack Overflow](https://stackoverflow.com/search?tab=newest&q=docker)
 
--   **Where to file issues:**
+- **Where to file issues:**
 [Issue Tracker](https://github.com/skriptfabrik/docker-hub-gke-tools/issues)
 
--   **Maintained by:**
+- **Maintained by:**
 [The skriptfabrik Team](https://github.com/skriptfabrik)
 
--   **Source of this description:**
+- **Source of this description:**
 [Repository README.md](https://github.com/skriptfabrik/docker-hub-gke-tools/blob/master/README.md)

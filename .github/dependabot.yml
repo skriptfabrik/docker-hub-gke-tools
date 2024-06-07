@@ -1,0 +1,18 @@
+version: 2
+
+updates:
+  - package-ecosystem: 'docker'
+    directory: '/'
+    reviewers:
+      - 'skriptfabrik/docker-maintainers'
+    registries:
+      - 'ghcr.io'
+    schedule:
+      interval: 'weekly'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    reviewers:
+      - 'skriptfabrik/github-actions-maintainers'
+    schedule:
+      interval: 'weekly'
