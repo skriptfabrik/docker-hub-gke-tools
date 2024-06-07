@@ -5,8 +5,6 @@ updates:
     directory: '/'
     reviewers:
       - 'skriptfabrik/docker-maintainers'
-    registries:
-      - 'ghcr.io'
     schedule:
       interval: 'weekly'
 
