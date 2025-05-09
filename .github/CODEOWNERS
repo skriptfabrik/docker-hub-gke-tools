@@ -1,0 +1,5 @@
+# GitHub Actions files
+/.github/               @skriptfabrik/github-actions-maintainers
+
+# Docker files
+Dockerfile              @skriptfabrik/docker-maintainers
