@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:530.0.0-alpine
+FROM google/cloud-sdk:533.0.0-alpine
 
 ARG TARGETOS
 ARG TARGETARCH
