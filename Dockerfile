@@ -3,7 +3,7 @@ FROM google/cloud-sdk:552.0.0-alpine
 ARG TARGETOS
 ARG TARGETARCH
 
-ENV HELM_VERSION=3.15.1
+ENV HELM_VERSION=4.0.0
 ENV KUBE_VERSION=1.29
 
 # Use ash with options
