@@ -4,7 +4,7 @@ ARG TARGETOS
 ARG TARGETARCH
 
 ENV HELM_VERSION=4.0.0
-ENV KUBE_VERSION=1.29
+ENV KUBE_VERSION=1.35
 
 # Use ash with options
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
