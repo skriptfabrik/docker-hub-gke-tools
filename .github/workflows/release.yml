@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  release:
+    name: Build and Push Docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build and push
+        uses: skriptfabrik/github-actions/build-docker-image@main
+        with:
+          labels: |
+            org.opencontainers.image.authors=skriptfabrik GmbH <info@skriptfabrik.com>
+          registry: docker.io
+          registry-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          registry-password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: skriptfabrik/gke-tools
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=sha
